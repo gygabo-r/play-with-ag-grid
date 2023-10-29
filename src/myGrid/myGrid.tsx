@@ -4,7 +4,7 @@ import { AgGridReact } from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { getRows, Row } from '../data/dataRow.ts';
-import { columDefintions } from '../data/columDefintions.ts';
+import { columDefinitions } from '../data/columDefinitions.ts';
 
 const MyGrid: React.FC = () => {
     const gridRef = useRef<AgGridReact>(); // Optional - for accessing Grid's API
@@ -33,7 +33,7 @@ const MyGrid: React.FC = () => {
                     // @ts-ignore
                     ref={gridRef} // Ref for accessing Grid's API
                     rowData={rowData} // Row Data for Rows
-                    columnDefs={columDefintions} // Column Defs for Columns
+                    columnDefs={columDefinitions} // Column Defs for Columns
                     defaultColDef={defaultColDef} // Default Column Properties
                     animateRows={false} // Optional - set to 'true' to have rows animate when sorted
                     // onCellClicked={cellClickedListener} // Optional - registering for Grid Event

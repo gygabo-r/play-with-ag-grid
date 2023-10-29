@@ -1,12 +1,11 @@
 import { ColDef } from 'ag-grid-community';
 import { dates, products, Row, units } from './dataRow.ts';
 
-export const columDefintions: ColDef<Row>[] = [
+export const columDefinitions: ColDef<Row>[] = [
     {
         headerName: 'Name',
         field: 'personName',
         resizable: true,
-        sortable: false,
     },
     ...[...dates.values()].map(d => ({
         headerName: d.substring(0, 10),
