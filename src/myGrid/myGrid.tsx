@@ -3,6 +3,7 @@ import { AgGridReact } from 'ag-grid-react'; // the AG Grid React Component
 
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { getRows } from '../data/dataRow.ts';
 
 const MyGrid: React.FC = () => {
     const gridRef = useRef<AgGridReact>(); // Optional - for accessing Grid's API
@@ -37,6 +38,8 @@ const MyGrid: React.FC = () => {
     const buttonListener = useCallback(() => {
         gridRef.current?.api.deselectAll();
     }, []);
+
+    console.log(getRows());
 
     return (
         <div>
