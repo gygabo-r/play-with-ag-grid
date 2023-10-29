@@ -1,31 +1,28 @@
 import { faker } from '@faker-js/faker';
 
-const dates = new Set(Array.from({ length: 10 }, (_, i) => new Date(2023, 1, i + 1).toISOString()));
+export const dates = new Set(Array.from({ length: 10 }, (_, i) => new Date(2023, 1, i + 1).toISOString()));
 
 const persons: Person[] = Array.from({ length: 1000 }, (_, i) => ({ id: i + 1, name: faker.person.fullName() }));
 const personsMap: Record<number, Person> = persons.reduce((acc, curr) => {
     return { ...acc, [curr.id]: curr };
 }, {});
-const products: Product[] = [
+
+export const units: UnitDescriptor[] = [
+    { name: 'boolean', id: 1, dataType: 'boolean' },
+    { name: 'time', id: 2, dataType: 'time' },
+    { name: 'text', id: 3, dataType: 'string' },
+    { name: 'number', id: 4, dataType: 'number' },
+];
+export const products: Product[] = [
     {
         name: faker.commerce.productName(),
         id: 1,
-        units: [
-            { name: 'boolean', id: 1, dataType: 'boolean' },
-            { name: 'time', id: 2, dataType: 'time' },
-            { name: 'text', id: 3, dataType: 'string' },
-            { name: 'number', id: 4, dataType: 'number' },
-        ],
+        units: [...units],
     },
     {
         name: faker.commerce.productName(),
         id: 2,
-        units: [
-            { name: 'boolean', id: 1, dataType: 'boolean' },
-            { name: 'time', id: 2, dataType: 'time' },
-            { name: 'text', id: 3, dataType: 'string' },
-            { name: 'number', id: 4, dataType: 'number' },
-        ],
+        units: [...units],
     },
 ];
 
@@ -106,7 +103,7 @@ export function getRows() {
     });
 }
 
-type Row = {
+export type Row = {
     personId: number;
     personName: string;
     [key: string]: number | string | undefined;

@@ -3,18 +3,12 @@ import { AgGridReact } from 'ag-grid-react'; // the AG Grid React Component
 
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { getRows } from '../data/dataRow.ts';
+import { getRows, Row } from '../data/dataRow.ts';
+import { columDefintions } from '../data/columDefintions.ts';
 
 const MyGrid: React.FC = () => {
     const gridRef = useRef<AgGridReact>(); // Optional - for accessing Grid's API
-    const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
-
-    // Each Column Definition results in one Column.
-    const [columnDefs] = useState([
-        { field: 'make', filter: true },
-        { field: 'model', filter: true },
-        { field: 'price' },
-    ]);
+    const [rowData, setRowData] = useState<Row[]>([]); // Set rowData to Array of Objects, one Object per Row
 
     const defaultColDef = useMemo(
         () => ({
@@ -23,23 +17,13 @@ const MyGrid: React.FC = () => {
         []
     );
 
-    // const cellClickedListener = useCallback( event => {
-    //     console.log('cellClicked', event);
-    // }, []);
-
-    // Example load data from server
     useEffect(() => {
-        fetch('https://www.ag-grid.com/example-assets/row-data.json')
-            .then(result => result.json())
-            .then(rowData => setRowData(rowData));
+        setRowData(getRows());
     }, []);
 
-    // Example using Grid's API
     const buttonListener = useCallback(() => {
         gridRef.current?.api.deselectAll();
     }, []);
-
-    console.log(getRows());
 
     return (
         <div>
@@ -49,7 +33,7 @@ const MyGrid: React.FC = () => {
                     // @ts-ignore
                     ref={gridRef} // Ref for accessing Grid's API
                     rowData={rowData} // Row Data for Rows
-                    columnDefs={columnDefs} // Column Defs for Columns
+                    columnDefs={columDefintions} // Column Defs for Columns
                     defaultColDef={defaultColDef} // Default Column Properties
                     animateRows={false} // Optional - set to 'true' to have rows animate when sorted
                     // onCellClicked={cellClickedListener} // Optional - registering for Grid Event
