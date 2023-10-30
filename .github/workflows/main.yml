@@ -1,4 +1,4 @@
-name: React app deployement
+name: React app deployment
 
 on:
   push:
@@ -8,10 +8,14 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-      - name: Build & Deploy React app to GitHub Pages
-        uses: MrKrishnaAgarwal/deploy-react-app-to-gh-pages@v1.0.0
+      - run: npm i
+      - run: npm ci
+      - run: npm run build
+      - run: git config user.name github-actions
+      - run: git config user.email github-actions@github.com
+      - run: git --work-tree dist add --all
+      - run: git commit -m "Automatic Build and Deploy run by GitHub Actions"
+      - run: git push origin HEAD:gh-pages --force
